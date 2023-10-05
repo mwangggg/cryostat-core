@@ -50,7 +50,7 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: cryostat-${{ inputs.build-arch }}
-        path: $GITHUB_WORKSPACE/cryostat-${{ inputs.build-arch }}.tar
+        path: ${{ github.workspace }}/cryostat-${{ inputs.build-arch }}.tar
     - uses: skjolber/maven-cache-github-action@v1
       with:
         step: save

@@ -38,7 +38,7 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: cryostat-core
-        path: $GITHUB_WORKSPACE/target/${{ steps.get_core_version.outputs.name }}-${{ steps.get_core_version.outputs.test_version }}.jar
+        path: ${{ github.workspace }}/target/${{ steps.get_core_version.outputs.name }}-${{ steps.get_core_version.outputs.test_version }}.jar
 
   build-cryostat:
     needs: [build-core]
