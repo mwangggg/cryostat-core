@@ -34,7 +34,7 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: 'maven'
-    - run: mvn -B -U clean verify
+    - run: mvn -B -U clean install
     - uses: actions/upload-artifact@v3
       with:
         name: cryostat-core
