@@ -13,6 +13,10 @@ on:
         description: the Cryostat application version that will be built
         value: ${{ jobs.get-pom-properties.outputs.image-version }}
 
+env:
+  CURRENT_VERSION: "2.23.0"
+  TEST_VERSION: 2.24.0-SNAPSHOT
+
 jobs:
   get-pom-properties:
     runs-on: ubuntu-latest
@@ -23,7 +27,7 @@ jobs:
         ref: main
     - uses: Mudlet/xmlstarlet-action@master
       with:
-        args: ed -P -L -u '//_:properties[_:io.cryostat.core.version="2.23.0"]/_:io.cryostat.core.version' -v "2.24.0-SNAPSHOT" pom.xml 
+        args: ed -P -L -u '//_:properties[_:io.cryostat.core.version=${{ env.CURRENT_VERSION }}]/_:io.cryostat.core.version' -v ${{ env.TEST_VERSION }} pom.xml 
     - id: query-pom
       name: Get properties from POM
       # Query POM for image version and save as output parameter
