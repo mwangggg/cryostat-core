@@ -4,7 +4,7 @@ on:
       build-arch:
         required: true
         type: string
-      test-version:
+      core-version:
         required: true
         type: string
 
@@ -34,15 +34,9 @@ jobs:
       with:
         servers: '[{"id": "github", "username": "dummy", "password": "${env.GITHUB_TOKEN_REF}"}]'
         githubServer: false
-    - uses: skjolber/maven-cache-github-action@v1
-      with:
-        step: restore
     - run: git submodule init
     - run: git submodule update
-    - uses: actions/download-artifact@v3
-      with:
-        name: cryostat-core
-    - run: mvn -B -U -Dbuild.arch=${{ inputs.build-arch }} -Dio.cryostat.core.version=${{ inputs.test-version }} clean package
+    - run: mvn -B -U -Dbuild.arch=${{ inputs.build-arch }} -Dio.cryostat.core.version=${{ inputs.core-version }} clean package
       env:
         GITHUB_TOKEN_REF: ${{ secrets.GITHUB_TOKEN }}
     - name: Save cryostat image
@@ -51,6 +45,3 @@ jobs:
       with:
         name: cryostat-${{ inputs.build-arch }}
         path: ${{ github.workspace }}/cryostat-${{ inputs.build-arch }}.tar
-    - uses: skjolber/maven-cache-github-action@v1
-      with:
-        step: save
