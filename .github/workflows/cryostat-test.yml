@@ -72,6 +72,8 @@ jobs:
       packages: read
     env:
       build_arch: 'amd64'
+    permissions:
+      statuses: write
     steps:
     - uses: actions/checkout@v4
       with:
